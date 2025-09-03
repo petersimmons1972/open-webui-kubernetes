@@ -72,10 +72,16 @@ Update `open-webui-ingress.yaml` with your domain:
 spec:
   tls:
   - hosts:
-    - your-domain.com
-    secretName: your-tls-secret
+    - YOUR_OPENWEBUI_DOMAIN_HERE
+    secretName: YOUR_TLS_SECRET_NAME
   rules:
-  - host: your-domain.com
+  - host: YOUR_OPENWEBUI_DOMAIN_HERE
+```
+
+Replace placeholders before deployment:
+```bash
+sed -i 's/YOUR_OPENWEBUI_DOMAIN_HERE/openwebui.yourdomain.com/g' open-webui-ingress.yaml
+sed -i 's/YOUR_TLS_SECRET_NAME/your-tls-secret/g' open-webui-ingress.yaml
 ```
 
 ### Storage Configuration

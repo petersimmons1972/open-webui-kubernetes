@@ -1,7 +1,7 @@
 # open-webui-ingress.yaml
 # Purpose: Defines a Kubernetes Ingress to route external traffic to the Open-WebUI
-# Service via Traefik, using the existing petersimmons-com-tls certificate for TLS.
-# Updated to reference the new https-redirect middleware for HTTP-to-HTTPS redirection.
+# Service via Traefik, using TLS certificate for secure access.
+# Configure with your domain and TLS secret before deployment.
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -17,10 +17,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - open-webui.petersimmons.com
-    secretName: petersimmons-com-tls
+    - YOUR_OPENWEBUI_DOMAIN_HERE
+    secretName: YOUR_TLS_SECRET_NAME
   rules:
-  - host: open-webui.petersimmons.com
+  - host: YOUR_OPENWEBUI_DOMAIN_HERE
     http:
       paths:
       - path: /
