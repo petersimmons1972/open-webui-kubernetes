@@ -1,0 +1,22 @@
+# open-webui-service.yaml
+# Purpose: Defines a Kubernetes Service to expose the Open-WebUI Deployment
+# internally within the cluster, allowing Traefik to route traffic to it.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: open-webui
+  namespace: open-webui
+  labels:
+    app: open-webui
+  annotations:
+    description: Service to expose Open-WebUI pods within the cluster
+spec:
+  selector:
+    app: open-webui
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  type: ClusterIP

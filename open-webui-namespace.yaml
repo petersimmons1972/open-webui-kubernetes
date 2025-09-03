@@ -1,0 +1,12 @@
+# open-webui-namespace.yaml
+# Purpose: Creates a dedicated namespace for Open-WebUI to isolate resources
+# and improve organization within the Kubernetes cluster.
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: open-webui
+  labels:
+    app: open-webui
+  annotations:
+    description: Namespace for Open-WebUI application components

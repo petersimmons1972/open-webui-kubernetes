@@ -1,0 +1,23 @@
+# open-webui-pvc.yaml
+# Purpose: Creates a PersistentVolumeClaim for Open-WebUI to store data persistently
+# using Longhorn, which is already installed and configured in the cluster.
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: open-webui-pvc
+  namespace: open-webui
+  labels:
+    app: open-webui
+  annotations:
+    description: Persistent storage for Open-WebUI data using Longhorn
+spec:
+  # ReadWriteOnce is suitable for a single pod accessing the volume
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      # 10Gi storage, adjustable based on needs
+      storage: 10Gi
+  # Longhorn storage class, assumed to be configured
+  storageClassName: longhorn

@@ -1,0 +1,52 @@
+# open-webui-deployment.yaml
+# Purpose: Defines the Open-WebUI Deployment, including the pod configuration,
+# container settings, and persistent storage. Uses the secret for the admin password.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-webui
+  namespace: open-webui
+  labels:
+    app: open-webui
+  annotations:
+    description: Deployment for Open-WebUI application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: open-webui
+  template:
+    metadata:
+      labels:
+        app: open-webui
+    spec:
+      containers:
+      - name: open-webui
+        # Official Open-WebUI image, latest stable version as of 2025
+        image: ghcr.io/open-webui/open-webui:latest
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: open-webui-secret
+              key: ADMIN_PASSWORD
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+        resources:
+          # Resource limits to prevent overconsumption
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: open-webui-pvc

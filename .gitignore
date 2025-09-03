@@ -1,0 +1,17 @@
+# Ignore files with sensitive data
+.env
+*.env
+.env.*
+
+# Ignore backup files that might contain secrets
+*.bak
+*.backup
+*~
+
+# Ignore any files with actual secrets (not templates)
+*secret.yaml
+!*secret-template.yaml
+
+# Ignore temporary files
+*.tmp
+*.temp
